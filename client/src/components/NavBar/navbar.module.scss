@@ -1,0 +1,25 @@
+@import "../../assets/scss/config";
+
+.navBar {
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+
+  &Emblem {
+    width: 60px;
+    filter: drop-shadow(1px 2px 6px black);
+  }
+
+  &UserIcon {
+    font-size: 20px;
+  }
+
+  &UserDropDown {
+    transform: translate3d(-120px, 40px, 0px);
+  }
+
+  &ProfilePic {
+    width: 40px;
+    border-radius: 50%;
+    filter: drop-shadow(1px 2px 6px black);
+  }
+}

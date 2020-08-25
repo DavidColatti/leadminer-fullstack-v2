@@ -12,10 +12,10 @@ import LandingPage from "./components/LandingPage";
 
 const App = () => {
   const userAuthenticaton = useContext(UserContext);
+  const [user, setUser] = useState(null);
   const { data } = useQuery(GET_USER, {
     variables: { data: userAuthenticaton },
   });
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     setUser(data?.findUser);

@@ -17,4 +17,12 @@
       color: rgb(185, 185, 185);
     }
   }
+
+  &PhoneNum {
+    color: white !important;
+
+    &:hover {
+      color: #212529 !important;
+    }
+  }
 }

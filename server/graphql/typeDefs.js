@@ -45,7 +45,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    updateLeadList(id: String!, leadId: String!): User!
+    addLead(id: String!, leadId: String!): User!
+    deleteLead(id: String!, leadId: String!): User!
   }
 `;
 

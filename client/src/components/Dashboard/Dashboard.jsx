@@ -1,29 +1,49 @@
 import React from "react";
-import Loading from "../Loading/Loading";
 import { MDBDataTableV5 } from "mdbreact";
+import { useMutation } from "@apollo/client";
+import Loading from "../Loading/Loading";
+import { DELETE_LEAD } from "../../graphql/mutations";
 
 import styles from "./dashboard.module.scss";
 
 const Dashboard = ({ user }) => {
+  const [deleteLead] = useMutation(DELETE_LEAD);
+
+  const handleDeleteBtn = async (leadId) => {
+    deleteLead({
+      variables: {
+        id: user._id,
+        leadId: leadId,
+      },
+    });
+  };
+
   const rows = user?.leadsList.map((lead) => {
     const {
+      _id,
       city,
       state,
       category,
+      disposition,
       phoneNumber,
       businessName,
-      disposition,
     } = lead;
 
     return {
       city: city,
       state: state,
-      phoneNumber: phoneNumber,
+      phoneNumber: (
+        <a className={styles.dashboardPhoneNum} href={`tel:${phoneNumber}`}>
+          {phoneNumber}
+        </a>
+      ),
       disposition: disposition,
       businessName: businessName,
       category: category[0] || category,
       edit: <i className="fas fa-edit" />,
-      delete: <i className="fas fa-trash-alt" />,
+      delete: (
+        <i onClick={() => handleDeleteBtn(_id)} className="fas fa-trash-alt" />
+      ),
     };
   });
 

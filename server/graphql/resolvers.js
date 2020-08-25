@@ -44,12 +44,25 @@ const resolvers = {
     },
   },
   Mutation: {
-    updateLeadList: async (_, { id, leadId }) => {
+    addLead: async (_, { id, leadId }) => {
       const user = await User.findById(id);
       const lead = await Lead.findById(leadId);
       user.leadsList.push(lead);
 
-      console.log(user, lead);
+      user.save();
+
+      return user;
+    },
+    deleteLead: async (_, { id, leadId }) => {
+      const user = await User.findById(id);
+
+      user.leadsList.find((each, index) => {
+        if (each._id.toString() === leadId) {
+          user.leadsList.splice(index, 1);
+          return true;
+        }
+      });
+
       user.save();
 
       return user;

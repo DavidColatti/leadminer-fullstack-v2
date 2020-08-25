@@ -4,32 +4,32 @@ import { useQuery, useMutation } from "@apollo/client";
 import Loading from "../Loading";
 import styles from "./quickpick.module.scss";
 import { GET_RANDOMLEADS } from "../../graphql/queries";
-import { UPDATE_LEADLIST } from "../../graphql/mutations";
+import { ADD_LEAD } from "../../graphql/mutations";
 
 const QuickPick = ({ user }) => {
   const { data } = useQuery(GET_RANDOMLEADS);
-  const [updateLeadList] = useMutation(UPDATE_LEADLIST);
+  const [addLead] = useMutation(ADD_LEAD);
 
-  const handleAddBtn = async (lead) => {
-    updateLeadList({
+  const handleAddBtn = async (leadId) => {
+    addLead({
       variables: {
         id: user._id,
-        leadId: lead._id,
+        leadId: leadId,
       },
     });
   };
 
   const rows = data?.randomLeads.map((lead) => {
-    const { businessName, category, city, state } = lead;
+    const { businessName, category, city, state, _id } = lead;
 
     return {
       add: (
-        <i onClick={() => handleAddBtn(lead)} className="fas fa-plus-circle" />
+        <i onClick={() => handleAddBtn(_id)} className="fas fa-plus-circle" />
       ),
-      businessName: businessName,
       category: category[0] || category,
-      city: city,
+      businessName: businessName,
       state: state,
+      city: city,
     };
   });
 

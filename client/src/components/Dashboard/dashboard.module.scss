@@ -9,12 +9,13 @@
   }
 
   i {
+    color: white;
     font-size: 17px;
     cursor: pointer;
 
     &:hover {
       transition: all 0.2s ease-in-out;
-      color: rgb(185, 185, 185);
+      color: #212529;
     }
   }
 
@@ -22,6 +23,7 @@
     color: white !important;
 
     &:hover {
+      transition: all 0.2s ease-in-out;
       color: #212529 !important;
     }
   }

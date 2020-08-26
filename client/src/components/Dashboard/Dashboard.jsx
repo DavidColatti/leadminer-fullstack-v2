@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { MDBDataTableV5 } from "mdbreact";
 import { useMutation } from "@apollo/client";
-import Loading from "../Loading/Loading";
 import { DELETE_LEAD } from "../../graphql/mutations";
+import Loading from "../Loading/Loading";
 
 import styles from "./dashboard.module.scss";
 
@@ -40,7 +41,11 @@ const Dashboard = ({ user }) => {
       disposition: disposition,
       businessName: businessName,
       category: category[0] || category,
-      edit: <i className="fas fa-edit" />,
+      edit: (
+        <Link className={styles.dashboardLink} to={`/dashboard/${_id}`}>
+          <i className="fas fa-edit" />
+        </Link>
+      ),
       delete: (
         <i onClick={() => handleDeleteBtn(_id)} className="fas fa-trash-alt" />
       ),

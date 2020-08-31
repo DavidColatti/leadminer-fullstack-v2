@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { MDBDataTableV5 } from "mdbreact";
 import Loading from "../Loading/Loading";
 import styles from "./searchtool.module.scss";
 import { SEARCH_LEADS } from "./../../graphql/queries";
+import { ADD_LEAD } from "./../../graphql/mutations";
 
 const SearchTool = ({ user }) => {
   const [keyType, setKeyType] = useState("businessName");
   const [searchTerm, setSearchTerm] = useState("");
+  const [addLead] = useMutation(ADD_LEAD);
   const { data } = useQuery(SEARCH_LEADS, {
     variables: {
       key: keyType,
@@ -15,17 +17,21 @@ const SearchTool = ({ user }) => {
     },
   });
 
-  const handleAddBtn = (lead) => {
-    user.leadsList.push(lead);
-    console.log(user.leadsList);
+  const handleAddBtn = async (leadId) => {
+    addLead({
+      variables: {
+        id: user._id,
+        leadId: leadId,
+      },
+    });
   };
 
   const rows = data?.searchLeads.map((lead) => {
-    const { businessName, category, city, state } = lead;
+    const { businessName, category, city, state, _id } = lead;
 
     return {
       add: (
-        <i onClick={() => handleAddBtn(lead)} className="fas fa-plus-circle" />
+        <i onClick={() => handleAddBtn(_id)} className="fas fa-plus-circle" />
       ),
       businessName: businessName,
       category: category[0] || category,

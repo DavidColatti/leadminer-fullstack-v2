@@ -15,4 +15,11 @@ body {
   background-image: url(./../images/background.png);
 }
 
+.react-router-modal__modal {
+  height: 80vh;
+  width: 60%;
+  max-width: 40rem;
+  min-height: 30rem;
+}
+
 @import "mobile";

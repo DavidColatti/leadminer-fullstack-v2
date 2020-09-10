@@ -17,40 +17,109 @@ const ModalContent = ({ user }) => {
     }
   }, [location, user]);
 
+  const handleChange = (e) => {
+    setSelectedLead({
+      ...selectedLead,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <>
       {selectedLead && (
         <MDBCard narrow className={styles.modal}>
           <MDBCardBody>
-            <MDBInput name="businessName" label="Company Name" />
-            <MDBInput name="firstName" label="First Name" />
-            <MDBInput name="lastName" label="Last Name" />
-            <MDBInput name="email" outline icon="envelope" />
-            <MDBInput name="phoneNumber" label="Phone Number" />
-            <MDBInput name="secondPhoneNumber" label="Second Phone Number" />
-            <MDBInput name="streetAddress" label="Street" />
-            <MDBInput name="city" label="City" />
-            <MDBInput name="state" label="State" />
-            <div>
-              <label for="disposition">Disposition</label>
-              <select
-                name="disposition"
-                className="browser-default custom-select"
-              >
-                <option value="prospect">Prospect</option>
-                <option value="contacted">Contacted</option>
-                <option value="apptSet">Appt Set</option>
-                <option value="proposalSent">Sent Proposal</option>
-                <option value="client">Client</option>
-              </select>
+            <div className={styles.modalInputSection}>
+              <section>
+                <MDBInput
+                  name="businessName"
+                  label="Company Name"
+                  value={selectedLead.businessName}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="firstName"
+                  label="First Name"
+                  value={selectedLead.firstName}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="lastName"
+                  label="Last Name"
+                  value={selectedLead.lastName}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="email"
+                  outline
+                  icon="envelope"
+                  value={selectedLead.email}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="phoneNumber"
+                  label="Phone Number"
+                  value={selectedLead.phoneNumber}
+                  onChange={(e) => handleChange(e)}
+                />
+              </section>
+              <section>
+                <MDBInput
+                  name="secondPhoneNumber"
+                  label="Second Phone Number"
+                  value={selectedLead.secondPhoneNumber}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="streetAddress"
+                  label="Street"
+                  value={selectedLead.streetAddress}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="city"
+                  label="City"
+                  value={selectedLead.city}
+                  onChange={(e) => handleChange(e)}
+                />
+                <MDBInput
+                  name="state"
+                  label="State"
+                  value={selectedLead.state}
+                  onChange={(e) => handleChange(e)}
+                />
+                <div>
+                  <label htmlFor="disposition">Disposition</label>
+                  <select
+                    name="disposition"
+                    className="browser-default custom-select"
+                    value={selectedLead.disposition}
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <option value="prospect">Prospect</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="apptSet">Appt Set</option>
+                    <option value="proposalSent">Sent Proposal</option>
+                    <option value="client">Client</option>
+                  </select>
+                </div>
+              </section>
             </div>
 
-            <div>
-              <label for="notes">Notes</label>
-              <MDBInput name="notes" type="textarea" label="Notes" outline />
+            <div className={styles.modalNotes}>
+              <label htmlFor="notes">Notes</label>
+              <MDBInput
+                name="notes"
+                type="textarea"
+                outline
+                value={selectedLead.notes}
+                onChange={(e) => handleChange(e)}
+              />
             </div>
-            <MDBBtn>Save</MDBBtn>
           </MDBCardBody>
+          <MDBBtn color="inherit" className={styles.modalSaveBtn}>
+            Save
+          </MDBBtn>
         </MDBCard>
       )}
     </>

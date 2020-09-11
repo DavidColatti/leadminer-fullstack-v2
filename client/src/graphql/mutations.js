@@ -49,3 +49,28 @@ export const DELETE_LEAD = gql`
     }
   }
 `;
+
+export const UPDATE_LEAD = gql`
+  mutation updateLead($id: String!, $lead: TypeInputLead!) {
+    updateLead(id: $id, lead: $lead) {
+      _id
+      uid
+      displayName
+      leadsList {
+        _id
+        businessName
+        phoneNumber
+        city
+        state
+        firstName
+        lastName
+        streetAddress
+        secondPhoneNumber
+        notes
+        category
+        email
+        disposition
+      }
+    }
+  }
+`;

@@ -67,6 +67,20 @@ const resolvers = {
 
       return user;
     },
+    updateLead: async (_, { id, lead }) => {
+      const user = await User.findById(id);
+
+      user.leadsList.find((each, index) => {
+        if (each._id.toString() === lead._id) {
+          user.leadsList.splice(index, 1, lead);
+          return true;
+        }
+      });
+
+      user.save();
+
+      return user;
+    },
   },
 };
 

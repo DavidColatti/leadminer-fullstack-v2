@@ -36,6 +36,23 @@ const typeDefs = gql`
     phoneNumber: String
   }
 
+  input TypeInputLead {
+    _typename: String
+    _id: ID
+    businessName: String
+    phoneNumber: String
+    city: String
+    state: String
+    firstName: String
+    lastName: String
+    streetAddress: String
+    secondPhoneNumber: String
+    notes: [String]
+    category: [String]
+    email: String
+    disposition: String
+  }
+
   type Query {
     leads: [Lead]
     leadsCount: Int
@@ -47,6 +64,7 @@ const typeDefs = gql`
   type Mutation {
     addLead(id: String!, leadId: String!): User!
     deleteLead(id: String!, leadId: String!): User!
+    updateLead(id: String!, lead: TypeInputLead!): User!
   }
 `;
 

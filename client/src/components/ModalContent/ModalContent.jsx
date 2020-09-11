@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput } from "mdbreact";
+import { UPDATE_LEAD } from "../../graphql/mutations";
 import styles from "./modalcontent.module.scss";
 
 const ModalContent = ({ user }) => {
   const [selectedLead, setSelectedLead] = useState(null);
+  const [updateLead] = useMutation(UPDATE_LEAD);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,6 +24,47 @@ const ModalContent = ({ user }) => {
     setSelectedLead({
       ...selectedLead,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSaveBtn = () => {
+    const {
+      _id,
+      businessName,
+      phoneNumber,
+      city,
+      state,
+      firstName,
+      lastName,
+      streetAddress,
+      secondPhoneNumber,
+      notes,
+      category,
+      email,
+      disposition,
+    } = selectedLead;
+
+    const sentLead = {
+      _id,
+      businessName,
+      phoneNumber,
+      city,
+      state,
+      firstName,
+      lastName,
+      streetAddress,
+      secondPhoneNumber,
+      notes,
+      category,
+      email,
+      disposition,
+    };
+
+    updateLead({
+      variables: {
+        id: user._id,
+        lead: sentLead,
+      },
     });
   };
 
@@ -96,11 +140,11 @@ const ModalContent = ({ user }) => {
                     value={selectedLead.disposition}
                     onChange={(e) => handleChange(e)}
                   >
-                    <option value="prospect">Prospect</option>
-                    <option value="contacted">Contacted</option>
-                    <option value="apptSet">Appt Set</option>
-                    <option value="proposalSent">Sent Proposal</option>
-                    <option value="client">Client</option>
+                    <option value="Prospect">Prospect</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Appt Set">Appt Set</option>
+                    <option value="Sent Proposal">Sent Proposal</option>
+                    <option value="Client">Client</option>
                   </select>
                 </div>
               </section>
@@ -117,7 +161,11 @@ const ModalContent = ({ user }) => {
               />
             </div>
           </MDBCardBody>
-          <MDBBtn color="inherit" className={styles.modalSaveBtn}>
+          <MDBBtn
+            color="inherit"
+            className={styles.modalSaveBtn}
+            onClick={handleSaveBtn}
+          >
             Save
           </MDBBtn>
         </MDBCard>

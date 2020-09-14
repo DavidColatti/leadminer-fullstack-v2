@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { MDBBtn, MDBCard, MDBCardBody, MDBInput } from "mdbreact";
 import { UPDATE_LEAD } from "../../graphql/mutations";
@@ -9,6 +9,7 @@ const ModalContent = ({ user }) => {
   const [selectedLead, setSelectedLead] = useState(null);
   const [updateLead] = useMutation(UPDATE_LEAD);
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const leadId = location?.pathname.split("dashboard/")[1];
@@ -66,6 +67,8 @@ const ModalContent = ({ user }) => {
         lead: sentLead,
       },
     });
+
+    history.push("/dashboard");
   };
 
   return (
